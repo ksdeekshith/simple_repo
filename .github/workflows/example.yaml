@@ -44,3 +44,25 @@ jobs:
           PASSWORD: ${{ secrets.MY_PASSWORD }}
         run: |
           python test_secret.py 
+  
+  demo-node-application:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node-JS Environment
+        uses: actions/setup-node@v3
+
+      - name: Check Version
+        run: |
+          node --version
+          npm --version
+      - name: Installing Required Libraries
+        run: | 
+          npm install --save moment
+      
+      - name: Display Date with Message
+        run: |
+          node app.js
