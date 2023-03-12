@@ -4,6 +4,9 @@ on: [push]
 
 jobs:
   Display:
+    runs-on: ubuntu-latest
+    
+    steps:
     - name: Display Message
       run: |
         echo "Welcome to GitHub Actions"
