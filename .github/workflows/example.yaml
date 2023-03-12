@@ -1,5 +1,7 @@
 name: An Example Workflow
 
+run-name: Demo Workflow Job
+
 on:
   push:
     branches:
@@ -12,35 +14,33 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  demo-actions-chekout:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout 
+      - name: Display Working Directory
+        run: |
+          echo "$(pwd)"
+          ls -lart
+
+      - name: checkout
         uses: actions/checkout@v3
 
-      - name: install dependencies
-        run: npm install
-
-      - name: Build app
-        run: npm run build
-
-  test:
+      - name: Display working directory
+        run: |
+          echo "$(pwd)"
+          ls -lart
+  
+  demo-secrets:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Install dependencies
-        run: npm install
-      - name: Run tests
-        run: npm run test
 
-  deploy:
-    needs: [build, test]
-    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Install dependencies
-        run: npm install
-      - name: Deploy app
-        run: npm run deploy
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Run Script
+        env:
+          USERNAME: ${{ secrets.MY_USERNAME }}
+          PASSWORD: ${{ secrets.MY_PASSWORD }}
+        run: |
+          python test_secret.py 
