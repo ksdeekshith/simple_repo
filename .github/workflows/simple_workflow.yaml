@@ -1,0 +1,9 @@
+name: Simple Workflow
+
+on: [push]
+
+jobs:
+  Display:
+    - name: Display Message
+      run: |
+        echo "Welcome to GitHub Actions"
