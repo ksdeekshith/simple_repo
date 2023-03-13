@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  demo-actions-chekout:
+  demo-actions-checkout:
     runs-on: ubuntu-latest
 
     steps:
@@ -43,7 +43,24 @@ jobs:
           USERNAME: ${{ secrets.MY_USERNAME }}
           PASSWORD: ${{ secrets.MY_PASSWORD }}
         run: |
-          python test_secret.py 
+          python test_secret.py
+
+  demo-matrix:
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-20.04]
+        version: [ 10, 12, 14, 16 ]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Setup NodeJs Environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.version }}
+
+      - name: Check Version
+        run: node --version
   
   demo-node-application:
     runs-on: ubuntu-latest
