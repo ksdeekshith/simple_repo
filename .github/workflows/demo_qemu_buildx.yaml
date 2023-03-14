@@ -1,0 +1,38 @@
+name: An Example Workflow
+
+run-name: Demo for QEMU & BUILDX
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  demo_qemu_buildx:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Docker Availability
+        run: |
+          docker --version
+          docker info
+
+      - name: Setup Buildx [enabling experimental features]
+        uses: docker/setup-buildx-action@v2
+
+      - name: Supported architecures by docker deamon to build
+        run: |
+          docker buildx ls
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Check the Supported architecures to build by docker 
+        run: |
+          docker buildx ls

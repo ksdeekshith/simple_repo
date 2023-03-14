@@ -1,0 +1,37 @@
+name: An Example Workflow
+
+run-name: Demo for simple node application
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  demo-node-application:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node-JS Environment
+        uses: actions/setup-node@v3
+
+      - name: Check Version
+        run: |
+          node --version
+          npm --version
+      - name: Installing Required Libraries
+        run: |
+          npm install --save moment
+
+      - name: Display Date with Message
+        run: |
+          node app.js

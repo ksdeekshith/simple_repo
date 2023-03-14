@@ -1,0 +1,32 @@
+name: An Example Workflow
+
+run-name: Demo for actions/checkout
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  demo-actions-checkout:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Display Working Directory
+        run: |
+          echo "$(pwd)"
+          ls -lart
+
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: Display working directory
+        run: |
+          echo "$(pwd)"
+          ls -lart
